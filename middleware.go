@@ -149,11 +149,11 @@ func NewWithConfig(logger *slog.Logger, config Config) fiber.Handler {
 
 		// otel
 		if config.WithTraceID {
-			traceID := trace.SpanFromContext(c.Context()).SpanContext().TraceID().String()
+			traceID := trace.SpanFromContext(c.UserContext()).SpanContext().TraceID().String()
 			baseAttributes = append(baseAttributes, slog.String("trace-id", traceID))
 		}
 		if config.WithSpanID {
-			spanID := trace.SpanFromContext(c.Context()).SpanContext().SpanID().String()
+			spanID := trace.SpanFromContext(c.UserContext()).SpanContext().SpanID().String()
 			baseAttributes = append(baseAttributes, slog.String("span-id", spanID))
 		}
 
